@@ -322,6 +322,13 @@ a.nav-item:visited {
   font-size: 14px;
 }
 
+.page-head-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
 .icon-badge {
   width: 34px;
   height: 34px;
@@ -912,10 +919,13 @@ button.chip {
     line-height: 1.25;
   }
 
-  .page-head .btn,
-  .page-head .chip {
-    align-self: flex-start;
-    width: auto;
+  .page-head-actions {
+    width: 100%;
+  }
+
+  .page-head-actions .btn {
+    flex: 1;
+    justify-content: center;
   }
 
   .stats {

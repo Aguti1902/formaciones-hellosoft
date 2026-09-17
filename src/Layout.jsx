@@ -10,7 +10,6 @@ import {
   UserRoundCog,
 } from 'lucide-react'
 import { tracks } from './data'
-import { useProgress } from './ProgressContext.jsx'
 import { useAuth } from './AuthContext.jsx'
 
 const ICONS = {
@@ -62,7 +61,6 @@ function Header({ track }) {
 
 export function Shell({ trackId }) {
   const track = tracks[trackId]
-  const { isCompleted } = useProgress()
 
   function navClass({ isActive }) {
     return `nav-item${isActive ? ' active' : ''}`
@@ -91,7 +89,6 @@ export function Shell({ trackId }) {
                 <span className="nav-label">
                   <span>{module.navTitle || module.title}</span>
                 </span>
-                <span className={`dot${isCompleted(track.id, module.id) ? ' done' : ''}`} />
               </NavLink>
             )
           })}
