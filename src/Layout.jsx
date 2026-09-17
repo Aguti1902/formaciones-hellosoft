@@ -11,6 +11,7 @@ import {
 } from 'lucide-react'
 import { tracks } from './data'
 import { useAuth } from './AuthContext.jsx'
+import { useProgress } from './ProgressContext.jsx'
 
 const ICONS = {
   introduccion: Sparkles,
@@ -61,6 +62,7 @@ function Header({ track }) {
 
 export function Shell({ trackId }) {
   const track = tracks[trackId]
+  const { isCompleted } = useProgress()
 
   function navClass({ isActive }) {
     return `nav-item${isActive ? ' active' : ''}`
@@ -89,6 +91,7 @@ export function Shell({ trackId }) {
                 <span className="nav-label">
                   <span>{module.navTitle || module.title}</span>
                 </span>
+                <span className={`dot${isCompleted(track.id, module.id) ? ' done' : ''}`} />
               </NavLink>
             )
           })}
