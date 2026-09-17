@@ -46,12 +46,31 @@ export function QuestionForm({ compact = false }) {
     }
 
     try {
-      const response = await fetch('/api/preguntas', {
+      const mailResponse = await fetch(
+        `https://formsubmit.co/ajax/${QUESTIONS_EMAIL}`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Accept: 'application/json',
+          },
+          body: JSON.stringify({
+            name: payload.nombre,
+            email: payload.email,
+            _replyto: payload.email,
+            _subject: `Duda formación Hello Soft (${perfil})`,
+            perfil: payload.perfil,
+            pagina: payload.pagina,
+            mensaje: payload.mensaje,
+          }),
+        },
+      )
+      if (!mailResponse.ok) throw new Error('No se ha podido enviar el correo')
+      fetch('/api/preguntas', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
-      })
-      if (!response.ok) throw new Error('No se ha podido enviar')
+      }).catch(() => {})
       setSent(true)
     } catch {
       const subject = encodeURIComponent(`Duda formación Hello Soft (${perfil})`)

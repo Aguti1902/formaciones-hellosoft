@@ -3,6 +3,6 @@ export const PASSWORDS = {
   tienda: 'TiendaHello26',
 }
 
-export const QUESTIONS_EMAIL = 'formacion@hellonails.com'
+export const QUESTIONS_EMAIL = 'hellosoft@hellonails.es'
 export const AUTH_STORAGE_KEY = 'hello-soft-formacion-auth'
 export const cookieName = (trackId) => `hello_soft_${trackId}`
