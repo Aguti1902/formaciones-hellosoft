@@ -57,84 +57,6 @@ function hasRoleCookie(req, folder) {
   return cookie.split(';').some((part) => part.trim() === `hello_soft_${role}=1`)
 }
 
-function collectBody(req) {
-  return new Promise((resolve, reject) => {
-    const chunks = []
-    let size = 0
-    req.on('data', (chunk) => {
-      size += chunk.length
-      if (size > 80_000) {
-        reject(new Error('too large'))
-        return
-      }
-      chunks.push(chunk)
-    })
-    req.on('end', () => resolve(Buffer.concat(chunks).toString('utf8')))
-    req.on('error', reject)
-  })
-}
-
-function questionsApi() {
-  const file = path.join(root, 'preguntas.json')
-
-  async function handle(req, res, next) {
-    const url = (req.url || '').split('?')[0]
-    if (url !== '/api/preguntas') return next()
-
-    res.setHeader('Content-Type', 'application/json')
-
-    if (req.method === 'OPTIONS') {
-      res.statusCode = 204
-      res.end()
-      return
-    }
-
-    if (req.method === 'POST') {
-      try {
-        const raw = await collectBody(req)
-        const data = JSON.parse(raw)
-        if (!data?.nombre || !data?.mensaje || !data?.email) {
-          res.statusCode = 400
-          res.end(JSON.stringify({ ok: false }))
-          return
-        }
-        const list = fs.existsSync(file) ? JSON.parse(fs.readFileSync(file, 'utf8')) : []
-        list.push({
-          id: Date.now(),
-          fecha: new Date().toISOString(),
-          nombre: String(data.nombre).slice(0, 120),
-          email: String(data.email || data.contacto || '').slice(0, 180),
-          perfil: data.perfil === 'franquiciados' ? 'franquiciados' : 'tienda',
-          mensaje: String(data.mensaje).slice(0, 4000),
-          pagina: String(data.pagina || '').slice(0, 180),
-        })
-        fs.writeFileSync(file, JSON.stringify(list, null, 2))
-        res.end(JSON.stringify({ ok: true }))
-      } catch {
-        res.statusCode = 400
-        res.end(JSON.stringify({ ok: false }))
-      }
-      return
-    }
-
-    next()
-  }
-
-  return {
-    name: 'hello-questions',
-    configureServer(server) {
-      server.middlewares.use((req, res, next) => {
-        handle(req, res, next)
-      })
-    },
-    configurePreviewServer(server) {
-      server.middlewares.use((req, res, next) => {
-        handle(req, res, next)
-      })
-    },
-  }
-}
-
 function helloMedia() {
   return {
     name: 'hello-media',
@@ -181,7 +103,7 @@ function helloMedia() {
 }
 
 export default defineConfig({
-  plugins: [react(), questionsApi(), helloMedia()],
+  plugins: [react(), helloMedia()],
   server: {
     port: 5173,
     fs: { allow: [root] },

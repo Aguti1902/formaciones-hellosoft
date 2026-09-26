@@ -3,7 +3,6 @@ import { Link, useParams } from 'react-router-dom'
 import { ChevronLeft, ChevronRight, CircleCheck } from 'lucide-react'
 import { tracks, videoUrl } from '../data'
 import { useProgress } from '../ProgressContext.jsx'
-import { QuestionCard } from '../QuestionBox.jsx'
 
 export default function ModulePage() {
   const { trackId, moduleId } = useParams()
@@ -108,8 +107,6 @@ export default function ModulePage() {
           ))}
         </aside>
       </div>
-
-      <QuestionCard />
     </>
   )
 }

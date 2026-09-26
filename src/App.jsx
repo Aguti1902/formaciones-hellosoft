@@ -7,7 +7,6 @@ import Login from './pages/Login.jsx'
 import { AuthProvider } from './AuthContext.jsx'
 import { ProgressProvider } from './ProgressContext.jsx'
 import ProtectedTrack from './ProtectedTrack.jsx'
-import { QuestionDock } from './QuestionBox.jsx'
 
 export default function App() {
   return (
@@ -26,7 +25,6 @@ export default function App() {
           </Route>
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
-        <QuestionDock />
       </ProgressProvider>
     </AuthProvider>
   )

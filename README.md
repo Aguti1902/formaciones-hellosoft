@@ -17,4 +17,3 @@ Abre [http://localhost:5173/](http://localhost:5173/).
 - Tienda: `TiendaHello26`
 
 Las contraseñas se pueden cambiar en `src/credentials.js`.
-Las dudas enviadas se guardan en `preguntas.json` (no se sube al repositorio).

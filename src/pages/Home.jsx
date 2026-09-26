@@ -2,7 +2,6 @@ import { Link } from 'react-router-dom'
 import { ArrowRight, LockKeyhole, Play, Store, Building2 } from 'lucide-react'
 import { tracks } from '../data'
 import { useAuth } from '../AuthContext.jsx'
-import { QuestionCard } from '../QuestionBox.jsx'
 
 export default function Home() {
   const { isAuthenticated } = useAuth()
@@ -76,8 +75,6 @@ export default function Home() {
           </div>
         </Link>
       </div>
-
-      <QuestionCard />
     </>
   )
 }

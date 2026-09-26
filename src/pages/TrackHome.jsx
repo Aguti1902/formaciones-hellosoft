@@ -2,7 +2,6 @@ import { Link, useParams } from 'react-router-dom'
 import { Play, Users } from 'lucide-react'
 import { tracks } from '../data'
 import { useProgress } from '../ProgressContext.jsx'
-import { QuestionCard } from '../QuestionBox.jsx'
 
 export default function TrackHome() {
   const { trackId } = useParams()
@@ -71,8 +70,6 @@ export default function TrackHome() {
           )
         })}
       </div>
-
-      <QuestionCard />
     </>
   )
 }
